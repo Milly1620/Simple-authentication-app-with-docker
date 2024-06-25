@@ -1,0 +1,23 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider             = "prisma-client-py"
+  recursive_type_depth = "5"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+// model for the simple auth app
+model user{
+id           Int       @id @default(autoincrement())
+name         String
+email        String    @unique
+password     String
+created_at   DateTime
+}
+

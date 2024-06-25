@@ -1,0 +1,36 @@
+extend schema
+  @link(
+    url: "https://specs.apollo.dev/federation/v2.0"
+    import: ["@key", "@shareable"]
+)
+
+type Mutation {
+  signUp(input: signUpInput) : user
+  login(input: loginInput) : user_token
+}
+
+type Query {    
+  allUsers: [user]
+}
+
+type user{
+  id:                      Int     
+  name:                    String
+  email:                   String 
+}
+type user_token{
+  message:                 String
+  token:                   String
+  refresh_token:           String
+}
+
+input  signUpInput {
+  name:                    String
+  email:                   String
+  password:                String    
+}
+
+input  loginInput {
+  email:                   String
+  password:                String    
+}

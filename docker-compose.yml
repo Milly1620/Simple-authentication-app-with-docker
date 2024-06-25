@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  app:
+    image: simple-authentication-app:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgresql://postgres:milly123@db:5432/app_db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=app_db
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=milly123
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  db_data:
